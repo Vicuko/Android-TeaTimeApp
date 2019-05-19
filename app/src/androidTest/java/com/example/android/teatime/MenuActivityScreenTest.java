@@ -58,5 +58,4 @@ public class MenuActivityScreenTest {
         onData(anything()).inAdapterView(withId(R.id.tea_grid_view)).atPosition(1).perform(click());
         onView(withId(R.id.tea_name_text_view)).check(matches(withText(TEA_NAME)));
     }
-
 }
