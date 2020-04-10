@@ -54,7 +54,7 @@ public class OrderActivityBasicTest {
     public void clickDecrementButton_ChangesQuantityAndCost() {
         // TODO (3) Finish writing this test which will:
         //          - Check that the initial quantity is zero
-        //          - Click on the decrement button
+        //          - Click on the decrement button - Done
         onView(withId(R.id.decrement_button)).perform(doubleClick());
         //          - Verify that the decrement button won't decrease the quantity 0 and cost below $0.00
         onView(withId(R.id.quantity_text_view)).check(matches(withText("0")));
