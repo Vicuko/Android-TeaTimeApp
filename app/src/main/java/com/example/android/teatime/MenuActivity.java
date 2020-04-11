@@ -59,23 +59,13 @@ public class MenuActivity extends AppCompatActivity implements ImageDownloader.D
     }
 
     /**
-     * TODO (4) Using the method you created, get the IdlingResource variable.
+     * TODO (4) Using the method you created, get the IdlingResource variable. - Done
      * Then call downloadImage from ImageDownloader. To ensure there's enough time for IdlingResource
      * to be initialized, remember to call downloadImage in either onStart or onResume.
      * This is because @Before in Espresso Tests is executed after the activity is created in
      * onCreate, so there might not be enough time to register the IdlingResource if the download is
      * done too early.
      */
-    IdlingResource midlingResource2 = getIdlingResource();
-    ImageDownloader
-
-
-    // TODO (5) Override onDone so when the thread in ImageDownloader is finished, it returns an
-    // ArrayList of Tea objects via the callback.
-    @Override
-    public void onDone(ArrayList<Tea> teas) {
-
-    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -85,15 +75,27 @@ public class MenuActivity extends AppCompatActivity implements ImageDownloader.D
         setSupportActionBar(menuToolbar);
         getSupportActionBar().setTitle(getString(R.string.menu_title));
 
-        // Create an ArrayList of teas
-        final ArrayList<Tea> teas = new ArrayList<>();
-        teas.add(new Tea(getString(R.string.black_tea_name), R.drawable.black_tea));
-        teas.add(new Tea(getString(R.string.green_tea_name), R.drawable.green_tea));
-        teas.add(new Tea(getString(R.string.white_tea_name), R.drawable.white_tea));
-        teas.add(new Tea(getString(R.string.oolong_tea_name), R.drawable.oolong_tea));
-        teas.add(new Tea(getString(R.string.honey_lemon_tea_name), R.drawable.honey_lemon_tea));
-        teas.add(new Tea(getString(R.string.chamomile_tea_name), R.drawable.chamomile_tea));
+        getIdlingResource();
+//        // Create an ArrayList of teas
+//        final ArrayList<Tea> teas = new ArrayList<>();
+//        teas.add(new Tea(getString(R.string.black_tea_name), R.drawable.black_tea));
+//        teas.add(new Tea(getString(R.string.green_tea_name), R.drawable.green_tea));
+//        teas.add(new Tea(getString(R.string.white_tea_name), R.drawable.white_tea));
+//        teas.add(new Tea(getString(R.string.oolong_tea_name), R.drawable.oolong_tea));
+//        teas.add(new Tea(getString(R.string.honey_lemon_tea_name), R.drawable.honey_lemon_tea));
+//        teas.add(new Tea(getString(R.string.chamomile_tea_name), R.drawable.chamomile_tea));
+    }
 
+    @Override
+    protected void onStart() {
+        super.onStart();
+        ImageDownloader.downloadImage(this, MenuActivity.this, mIdlingResource);
+    }
+
+    // TODO (5) Override onDone so when the thread in ImageDownloader is finished, it returns an - Done
+    // ArrayList of Tea objects via the callback.
+    @Override
+    public void onDone(ArrayList<Tea> teas) {
         // Create a {@link TeaAdapter}, whose data source is a list of {@link Tea}s.
         // The adapter know how to create grid items for each item in the list.
         GridView gridview = (GridView) findViewById(R.id.tea_grid_view);
@@ -114,7 +116,6 @@ public class MenuActivity extends AppCompatActivity implements ImageDownloader.D
                 startActivity(mTeaIntent);
             }
         });
+
     }
-
-
 }

@@ -17,6 +17,8 @@
 package com.example.android.teatime;
 
 
+import androidx.test.core.app.ActivityScenario;
+import androidx.test.espresso.IdlingRegistry;
 import androidx.test.espresso.IdlingResource;
 import androidx.test.internal.runner.junit4.AndroidJUnit4ClassRunner;
 import androidx.test.rule.ActivityTestRule;
@@ -26,6 +28,11 @@ import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+
+import static androidx.test.espresso.Espresso.onData;
+import static androidx.test.espresso.action.ViewActions.click;
+import static androidx.test.espresso.matcher.ViewMatchers.withId;
+import static org.hamcrest.Matchers.anything;
 
 /**
  * Usually Espresso syncs all view operations with the UI thread as well as AsyncTasks, but it can't
@@ -62,22 +69,32 @@ public class IdlingResourceMenuActivityTest {
     private IdlingResource mIdlingResource;
 
 
-    // TODO (6) Registers any resource that needs to be synchronized with Espresso before
+    // TODO (6) Registers any resource that needs to be synchronized with Espresso before - Done
     // the test is run.
     @Before
     public void registerIdlingResource() {
-
+        ActivityScenario activityScenario = ActivityScenario.launch(MenuActivity.class);
+        activityScenario.onActivity(new ActivityScenario.ActivityAction<MenuActivity>() {
+            @Override
+            public void perform(MenuActivity activity) {
+                mIdlingResource = activity.getIdlingResource();
+                // To prove that the test fails, omit this call:
+                IdlingRegistry.getInstance().register(mIdlingResource);
+            }
+        });
     }
 
-    // TODO (7) Test that the gridView with Tea objects appears and we can click a gridView item
+    // TODO (7) Test that the gridView with Tea objects appears and we can click a gridView item - Done
     @Test
     public void idlingResourceTest() {
-
+        onData(anything()).inAdapterView(withId(R.id.tea_grid_view)).atPosition(0).perform(click());
     }
 
-    // TODO (8) Unregister resources when not needed to avoid malfunction
+    // TODO (8) Unregister resources when not needed to avoid malfunction - Done
     @After
     public void unregisterIdlingResource() {
-
+        if (mIdlingResource != null) {
+            IdlingRegistry.getInstance().unregister(mIdlingResource);
+        }
     }
 }
