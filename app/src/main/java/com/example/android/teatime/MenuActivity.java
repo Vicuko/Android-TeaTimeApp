@@ -67,6 +67,7 @@ public class MenuActivity extends AppCompatActivity implements ImageDownloader.D
      * done too early.
      */
     IdlingResource midlingResource2 = getIdlingResource();
+    ImageDownloader
 
 
     // TODO (5) Override onDone so when the thread in ImageDownloader is finished, it returns an
