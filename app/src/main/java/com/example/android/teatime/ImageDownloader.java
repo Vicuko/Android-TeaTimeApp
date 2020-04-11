@@ -18,12 +18,14 @@ package com.example.android.teatime;
 
 import android.content.Context;
 import android.os.Handler;
-import android.support.annotation.Nullable;
-import android.support.test.espresso.IdlingResource;
 import android.widget.Toast;
+
+import androidx.test.espresso.IdlingResource;
 
 import com.example.android.teatime.IdlingResource.SimpleIdlingResource;
 import com.example.android.teatime.model.Tea;
+
+import org.jetbrains.annotations.Nullable;
 
 import java.util.ArrayList;
 

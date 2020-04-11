@@ -17,9 +17,9 @@
 package com.example.android.teatime;
 
 
-import android.support.test.espresso.IdlingResource;
-import android.support.test.rule.ActivityTestRule;
-import android.support.test.runner.AndroidJUnit4;
+import androidx.test.espresso.IdlingResource;
+import androidx.test.internal.runner.junit4.AndroidJUnit4ClassRunner;
+import androidx.test.rule.ActivityTestRule;
 
 import org.junit.After;
 import org.junit.Before;
@@ -44,7 +44,7 @@ import org.junit.runner.RunWith;
  */
 
 
-@RunWith(AndroidJUnit4.class)
+@RunWith(AndroidJUnit4ClassRunner.class)
 public class IdlingResourceMenuActivityTest {
 
     /**
