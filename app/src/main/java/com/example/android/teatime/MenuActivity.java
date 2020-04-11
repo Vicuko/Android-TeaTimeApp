@@ -22,28 +22,41 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.GridView;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.annotation.VisibleForTesting;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.test.espresso.IdlingResource;
 
+import com.example.android.teatime.IdlingResource.SimpleIdlingResource;
 import com.example.android.teatime.model.Tea;
 
 import java.util.ArrayList;
 
-// TODO (1) Implement ImageDownloader.DelayerCallback
-public class MenuActivity extends AppCompatActivity {
+// TODO (1) Implement ImageDownloader.DelayerCallback - Done
+public class MenuActivity extends AppCompatActivity implements ImageDownloader.DelayerCallback{
 
     Intent mTeaIntent;
 
     public final static String EXTRA_TEA_NAME = "com.example.android.teatime.EXTRA_TEA_NAME";
 
-    // TODO (2) Add a SimpleIdlingResource variable that will be null in production
+    // TODO (2) Add a SimpleIdlingResource variable that will be null in production - Done
+    @Nullable private SimpleIdlingResource mIdlingResource;
 
     /**
-     * TODO (3) Create a method that returns the IdlingResource variable. It will
+     * TODO (3) Create a method that returns the IdlingResource variable. It will - Done
      * instantiate a new instance of SimpleIdlingResource if the IdlingResource is null.
      * This method will only be called from test.
      */
-
+    @VisibleForTesting
+    @NonNull
+    public IdlingResource getIdlingResource() {
+        if (mIdlingResource == null) {
+            mIdlingResource = new SimpleIdlingResource();
+        }
+        return mIdlingResource;
+    }
 
     /**
      * TODO (4) Using the method you created, get the IdlingResource variable.
@@ -53,10 +66,15 @@ public class MenuActivity extends AppCompatActivity {
      * onCreate, so there might not be enough time to register the IdlingResource if the download is
      * done too early.
      */
+    IdlingResource midlingResource2 = getIdlingResource();
 
 
     // TODO (5) Override onDone so when the thread in ImageDownloader is finished, it returns an
     // ArrayList of Tea objects via the callback.
+    @Override
+    public void onDone(ArrayList<Tea> teas) {
+
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -96,4 +114,6 @@ public class MenuActivity extends AppCompatActivity {
             }
         });
     }
+
+
 }
